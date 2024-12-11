@@ -32,7 +32,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import asyncio
 from crud_functions import get_all_products
 
-api = ""
+api = "7611654870:AAGpdYjItvQmqZCjVq5ynJeqXoIAKfRccAA"
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
@@ -63,18 +63,6 @@ async def start_message(message):
     print('Привет! Я бот помогающий твоему здоровью.')
     await message.answer("Привет! Я бот, помогающий твоему здоровью.", reply_markup=kb)
 
-# @dp.message_handler(text='Купить')
-# async def get_buying_list(message):
-#     for i in get_all_products():
-#         number = i[0]
-#         title = i[1]
-#         description = i[2]
-#         price = i[3]
-#         with open (f'{str(number) + ".png"}', 'rb') as img:
-#             await message.answer_photo(img, caption=f'Название: {title} | Описание: {description} | Цена: {price}')
-
- # await message.answer(text='Выберите продукт для покупки: ', reply_markup=kb3)
-
 async def get_buying_list(message):
     images = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png']
     products = [
@@ -84,9 +72,19 @@ async def get_buying_list(message):
         'Название: Product 4 | Описание: описание 4 | Цена: 400'
     ]
     for i in get_all_products():
-        with open(images[i], 'rb') as img:
-            await message.answer_photo(img, caption=products[i])
-    await message.answer('Выберите продукт для покупки:', reply_markup=kb_in_2)
+        number = i[0]
+        title = i[1]
+        description = i[2]
+        price = i[3]
+        with open (f'{str(number) + ".png"}', 'rb') as img:
+                await message.answer_photo(img, caption=f'Название: {title} | Описание: {description} | Цена: {price}')
+
+    await message.answer(text='Выберите продукт для покупки: ', reply_markup=kb_in_2)
+
+    # for i in get_all_products():
+    #     with open(images[i], 'rb') as img:
+    #         await message.answer_photo(img, caption=products[i])
+    # await message.answer('Выберите продукт для покупки:', reply_markup=kb_in_2)
 class UserState (StatesGroup):
     age = State()
     growth = State()
